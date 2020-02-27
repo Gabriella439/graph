@@ -1,4 +1,4 @@
--- Get the label for the current node of a Graph
+-- Get the label for the current vertex of a Graph
 let Graph = ./Graph.dhall
 
 let label
@@ -7,9 +7,9 @@ let label
       → λ(graph : Graph Label)
       → graph
           Label
-          (   λ(Node : Type)
-            → λ(current : Node)
-            → λ(step : Node → { label : Label, neighbors : List Node })
+          (   λ(Vertex : Type)
+            → λ(current : Vertex)
+            → λ(step : Vertex → { label : Label, neighbors : List Vertex })
             → (step current).label
           )
 

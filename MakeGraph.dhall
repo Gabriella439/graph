@@ -1,37 +1,37 @@
 {-  Use `MakeGraph` to build a `Graph` by providing the following three
     arguments:
 
-    * First, a `Node` type (typically an enum) used to represent vertices
+    * First, a `Vertex` type (typically an enum) used to represent vertices
 
-      Each alternative of the `Node` enum represents a different vertex of the
+      Each alternative of the `Vertex` enum represents a different vertex of the
       `Graph`
 
-    * Second, the "current" `Node` of the graph
+    * Second, the "current" `Vertex` of the graph
 
       This starting point is necessary in order to navigate the `Graph`
 
-    * Third, a "step" function whose input is a `Node` and whose output is
-      that node's `label` and its `neighbors`
+    * Third, a "step" function whose input is a `Vertex` and whose output is
+      that vertex's `label` and its `neighbors`
 -}
 let Graph = ./Graph.dhall
 
 let MakeGraph
     :   ∀(Label : Type)
-      → ∀(Node : Type)
-      → ∀(current : Node)
-      → ∀(current : Node → { label : Label, neighbors : List Node })
+      → ∀(Vertex : Type)
+      → ∀(current : Vertex)
+      → ∀(current : Vertex → { label : Label, neighbors : List Vertex })
       → Graph Label
     =   λ(Label : Type)
-      → λ(Node : Type)
-      → λ(current : Node)
-      → λ(step : Node → { label : Label, neighbors : List Node })
+      → λ(Vertex : Type)
+      → λ(current : Vertex)
+      → λ(step : Vertex → { label : Label, neighbors : List Vertex })
       → λ(Graph : Type)
       → λ ( MakeGraph
-          :   ∀(Node : Type)
-            → Node
-            → (Node → { label : Label, neighbors : List Node })
+          :   ∀(Vertex : Type)
+            → Vertex
+            → (Vertex → { label : Label, neighbors : List Vertex })
             → Graph
           )
-      → MakeGraph Node current step
+      → MakeGraph Vertex current step
 
 in  MakeGraph
